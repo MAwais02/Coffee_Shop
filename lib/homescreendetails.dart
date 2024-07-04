@@ -1,9 +1,30 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'dart:ffi';
 
-class Homescreendetails extends StatelessWidget {
+import 'package:coffe_shop/global_var.dart';
+import 'package:coffe_shop/productcart.dart';
+import 'package:flutter/material.dart';
+
+class Homescreendetails extends StatefulWidget {
   const Homescreendetails({super.key});
+
+  @override
+  State<Homescreendetails> createState() => _HomescreendetailsState();
+}
+
+class _HomescreendetailsState extends State<Homescreendetails> {
+  final List<String> list = [
+    'All Coffees',
+    'American',
+    'Capacino',
+    'Cold Coffee',
+    'Sugar Free'
+  ];
+  late String seletedlist;
+  @override
+  void initState() {
+    super.initState();
+    seletedlist = list[0];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -137,13 +158,69 @@ class Homescreendetails extends StatelessWidget {
               height: mediaQ.height * 0.35,
               width: double.infinity,
               decoration: const BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                    colors: [Colors.white, Colors.white]),
+                color: Color.fromRGBO(249, 249, 249, 1),
+              ),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 50,
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: list.length,
+                      itemBuilder: (context, index) {
+                        final filter = list[index];
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: GestureDetector(
+                            onTap: () {
+                              setState(() {
+                                seletedlist = filter;
+                              });
+                            },
+                            child: Chip(
+                              backgroundColor: (seletedlist == filter)
+                                  ? Theme.of(context).colorScheme.primary
+                                  : const Color.fromARGB(255, 238, 233, 233),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              side: const BorderSide(
+                                color: Colors.white,
+                                width: 0.0,
+                              ),
+                              padding: const EdgeInsets.symmetric(),
+                              label: Center(child: Text(filter)),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                  Expanded(
+                    child: GridView.builder(
+                      itemCount: products.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2, // Number of columns
+                        crossAxisSpacing: 0.0,
+                        mainAxisSpacing: 0.0, // Vertical spacing between cells
+                        childAspectRatio: 0.7,
+                      ),
+                      itemBuilder: (BuildContext context, int index) {
+                        final product = products[index];
+                        return Productcart(
+                          name: product['name'] as String,
+                          price: product['price'] as double,
+                          subtitle: product['discription'] as String,
+                          image: product['imageUrl'] as String,
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

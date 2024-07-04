@@ -15,10 +15,11 @@ class Myapp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color.fromRGBO(198, 124, 78, 1.0)),
+              seedColor: const Color.fromRGBO(198, 124, 78, 1.0),
+              primary: const Color.fromRGBO(198, 124, 78, 1.0)),
           textTheme: GoogleFonts.interTextTheme(Theme.of(context).textTheme),
           focusColor: Colors.white),
-      home: Homescreendetails(),
+      home: const Homescreendetails(),
     );
   }
 }
