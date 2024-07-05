@@ -19,10 +19,13 @@ class _HomescreendetailsState extends State<Homescreendetails> {
     'Cold Coffee',
     'Sugar Free'
   ];
+
+  late int selectedIndex;
   late String seletedlist;
   @override
   void initState() {
     super.initState();
+    selectedIndex = 0;
     seletedlist = list[0];
   }
 
@@ -30,6 +33,7 @@ class _HomescreendetailsState extends State<Homescreendetails> {
   Widget build(BuildContext context) {
     var mediaQ = MediaQuery.of(context).size;
     return Scaffold(
+      bottomNavigationBar: buildmynavigationbar(context),
       body: Column(
         children: [
           Container(
@@ -208,11 +212,16 @@ class _HomescreendetailsState extends State<Homescreendetails> {
                       ),
                       itemBuilder: (BuildContext context, int index) {
                         final product = products[index];
-                        return Productcart(
-                          name: product['name'] as String,
-                          price: product['price'] as double,
-                          subtitle: product['discription'] as String,
-                          image: product['imageUrl'] as String,
+                        return GestureDetector(
+                          onTap: () {
+                            print("Tapping");
+                          },
+                          child: Productcart(
+                            name: product['name'] as String,
+                            price: product['price'] as double,
+                            subtitle: product['discription'] as String,
+                            image: product['imageUrl'] as String,
+                          ),
                         );
                       },
                     ),
@@ -221,6 +230,82 @@ class _HomescreendetailsState extends State<Homescreendetails> {
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+
+  Container buildmynavigationbar(BuildContext context) {
+    return Container(
+      height: 60,
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(15),
+          topRight: Radius.circular(15),
+        ),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          IconButton(
+            enableFeedback: false,
+            onPressed: () {
+              setState(() {
+                selectedIndex = 0;
+              });
+            },
+            icon: selectedIndex == 0
+                ? Icon(
+                    Icons.home,
+                    color: Theme.of(context).primaryColor,
+                  )
+                : const Icon(Icons.home_outlined),
+          ),
+          IconButton(
+            enableFeedback: false,
+            onPressed: () {
+              setState(() {
+                selectedIndex = 1;
+              });
+            },
+            icon: selectedIndex == 1
+                ? Icon(
+                    Icons.favorite,
+                    color: Theme.of(context).primaryColor,
+                  )
+                : const Icon(
+                    Icons.favorite_outline,
+                  ),
+          ),
+          IconButton(
+            enableFeedback: false,
+            onPressed: () {
+              setState(() {
+                selectedIndex = 2;
+              });
+            },
+            icon: selectedIndex == 2
+                ? Icon(
+                    Icons.shopping_bag,
+                    color: Theme.of(context).primaryColor,
+                  )
+                : const Icon(Icons.shopping_bag_outlined),
+          ),
+          IconButton(
+            enableFeedback: false,
+            onPressed: () {
+              setState(() {
+                selectedIndex = 3;
+              });
+            },
+            icon: selectedIndex == 3
+                ? Icon(
+                    Icons.notification_add,
+                    color: Theme.of(context).primaryColor,
+                  )
+                : const Icon(Icons.notification_add_outlined),
+          )
         ],
       ),
     );
