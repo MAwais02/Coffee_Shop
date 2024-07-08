@@ -31,18 +31,23 @@ class _ProductdetailspageState extends State<Productdetailspage> {
               const SizedBox(
                 height: 40,
               ),
-              const Padding(
-                padding: EdgeInsets.all(10.0),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Icon(Icons.arrow_back_ios_new),
-                    Text(
+                    IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(Icons.arrow_back_ios_new),
+                    ),
+                    const Text(
                       "Details",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
                     ),
-                    Icon(Icons.favorite_border_outlined),
+                    const Icon(Icons.favorite_border_outlined),
                   ],
                 ),
               ),

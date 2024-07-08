@@ -1,3 +1,4 @@
+import 'package:coffe_shop/homescreendetails.dart';
 import 'package:flutter/material.dart';
 
 class Homescreen extends StatelessWidget {
@@ -77,7 +78,14 @@ class Homescreen extends StatelessWidget {
                 margin: const EdgeInsets.all(10),
                 width: double.infinity,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const Homescreendetails(),
+                      ),
+                    );
+                  },
                   style: ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll(
                           Theme.of(context)
